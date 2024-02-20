@@ -27,8 +27,8 @@ export default new class ThreadService {
              
 
             let image = "";
-            if (res.locals.fieldname) {
-                image = res.locals.fieldname
+            if (res.locals.filename) {
+                image = res.locals.filename
             }
 
             const cloudinaryResponse = await cloudinary.uploader.upload
@@ -44,11 +44,14 @@ export default new class ThreadService {
             const thread = await this.ThreadRepository.create({
                 content: data.content,
                 image: image,   
-                user: { id: value.id },
+                user: { id: loginSession.id },
+                
             });
+             console.log(thread);
+             
 
             const setThread = await this.ThreadRepository.save(thread)
-            return res.status(201).json(thread)
+            return res.status(201).json(setThread)
 
         }   catch (error) {
             return res.status(500).send(error)

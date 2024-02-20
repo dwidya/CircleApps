@@ -2,6 +2,7 @@ import { AppDataSource } from "./data-source";
 import * as express from 'express';
 import * as cors from 'cors';
 import router from "./routes";
+import Cloudinary from "./utils/Cloudinary";
 
 AppDataSource.initialize()
     .then(async () => {
@@ -19,6 +20,7 @@ AppDataSource.initialize()
         app.use(express.json());
         app.use(cors(options));
         app.use("/api/v1", router);
+        Cloudinary.upload();
        
         app.listen(PORT, () => {
             console.log(`Server running on http://localhost:${PORT}`)

@@ -7,8 +7,7 @@ export const upload = (fieldName: string) => {
 			cb(null, "src/uploads/");
 		},
 		filename: function (req, file, cb) {
-			const uniqueSuffix = Date.now();
-			cb(null, file.fieldname + "-" + uniqueSuffix + ".png");
+			cb(null, `${file.fieldname} - ${Date.now()}.png`);
 		},
 	});
 
