@@ -11,7 +11,6 @@ export default new class FollowService {
     async follow(req: Request, res: Response): Promise<Response> {
         try {
             const user_id = res.locals.loginSession.user_id 
-
             const { error, value } = followingSchema.validate(req.body);
 
             if (error) {
@@ -69,6 +68,9 @@ export default new class FollowService {
     async getFollowing(req: Request, res: Response): Promise<Response> {
         try {
             const user_id = res.locals.loginSession.user_id
+            const id_from_query = req.query;
+            console.log("id_from_query",id_from_query);
+
             const user = await this.UserRepository.findOne({
                 where: {
                     id: user_id,
@@ -89,6 +91,10 @@ export default new class FollowService {
     async getFollowers(req: Request, res: Response): Promise<Response> {
         try {
             const user_id = res.locals.loginSession.user_id
+
+            const id_from_query = req.query;
+            console.log("id_from_query",id_from_query);
+
             const user = await this.UserRepository.findOne({
                 where: {
                     id: user_id,
